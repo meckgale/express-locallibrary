@@ -1,0 +1,50 @@
+<h1><%= title %></h1>
+
+<form method="POST">
+  <div class="form-group">
+    <label for="book">Book:</label>
+    <select id="book" class="form-control" name="book" required>
+      <option value="">--Please select a book--</option>
+      <% if (book_list && book_list.length > 0) { %>
+        <% book_list.forEach(function(book) { %>
+          <option value="<%= book._id %>" <%= selected_book && selected_book == book._id.toString() ? 'selected' : '' %>><%= book.title %></option>
+        <% }); %>
+      <% } else { %>
+        <option disabled>No books available</option>
+      <% } %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="imprint">Imprint:</label>
+    <input id="imprint" class="form-control" type="text" placeholder="Publisher and date information" name="imprint" required value="<%= book ? book.imprint : '' %>">
+  </div>
+
+  <div class="form-group">
+    <label for="due_back">Date when book available:</label>
+    <input id="due_back" class="form-control" type="date" name="due_back" value="<%= book ? book.due_back_yyyy_mm_dd : '' %>">
+  </div>
+
+  <div class="form-group">
+    <label for="status">Status:</label>
+    <select id="status" class="form-control" name="status" required>
+      <option value="">--Please select a status--</option>
+      <% ['Maintenance', 'Available', 'Loaned', 'Reserved'].forEach(function(val) { %>
+        <option value="<%= val %>" <%= book && book.status == val ? 'selected' : '' %>><%= val %></option>
+      <% }); %>
+    </select>
+  </div>
+
+  <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+<% if (typeof errors !== 'undefined' && errors.length) { %>
+    <ul>
+      <% errors.forEach(function(error) { %>
+        <li><%= error.msg %></li>
+      <% }); %>
+    </ul>
+  <% } %>
+
+
+

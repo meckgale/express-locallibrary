@@ -1,0 +1,48 @@
+<h1>Title: <%= book.title %></h1>
+
+<p>
+  <strong>Author: </strong
+  ><a href="<%= book.author.url %>" style="text-decoration: none"
+    ><%= book.author.name %></a
+  >
+</p>
+<p><strong>Summary:</strong> <%= book.summary %></p>
+<p><strong>ISBN:</strong> <%= book.isbn %></p>
+<p>
+  <strong>Genre:</strong>
+  <% book.genre.forEach(function(val, index) { %>
+  <a href="<%= val.url %>" style="text-decoration: none"><%= val.name %></a><%=
+  index < book.genre.length - 1 ? ',&nbsp;' : '' %> <% }); %>
+</p>
+
+<div style="margin-left: 20px; margin-top: 20px">
+  <h2 style="font-size: 1.5rem">Copies</h2>
+  <% if (book_instances && book_instances.length) { %> <%
+  book_instances.forEach(function(val) { %>
+  <hr />
+  <% if (val.status === 'Available') { %>
+  <p class="text-success"><%= val.status %></p>
+  <% } else if (val.status === 'Maintenance') { %>
+  <p class="text-danger"><%= val.status %></p>
+  <% } else { %>
+  <p class="text-warning"><%= val.status %></p>
+  <% } %>
+  <p><strong>Imprint:</strong> <%= val.imprint %></p>
+  <% if (val.status !== 'Available') { %>
+  <p><strong>Due back:</strong> <%= val.due_back %></p>
+  <% } %>
+  <p>
+    <strong>Id:</strong>
+    <a href="<%= val.url %>" style="text-decoration: none"><%= val._id %></a>
+  </p>
+  <% }); %> <% } else { %>
+  <p>There are no copies of this book in the library.</p>
+  <% } %>
+</div>
+<hr />
+<p>
+  <a href="<%= book.url %>/delete">Delete Book</a>
+</p>
+<p>
+  <a href="<%= book.url %>/update">Update Book</a>
+</p>

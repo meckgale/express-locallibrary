@@ -1,0 +1,19 @@
+<h1>Genre: <%= genre.name %></h1>
+
+<div style="margin-left: 20px; margin-top: 20px">
+  <h2 style="font-size: 1.5rem">Books</h2>
+  <% if (genre_books.length) { %>
+  <dl>
+    <% genre_books.forEach(function(book) { %>
+    <dt>
+      <a href="<%= book.url %>" style="text-decoration: none"
+        ><%= book.title %></a
+      >
+    </dt>
+    <dd><%= book.summary %></dd>
+    <% }); %>
+  </dl>
+  <% } else { %>
+  <p>This genre has no books.</p>
+  <% } %>
+</div>
