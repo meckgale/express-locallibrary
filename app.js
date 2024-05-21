@@ -17,7 +17,7 @@ const expressLayouts = require("express-ejs-layouts");
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
-require("dotenv").config();
+require("dotenv").config({ path: "./.env.production" });
 mongoose.set("strictQuery", false);
 
 // Fallback URL (should generally not include sensitive info directly in production code)
